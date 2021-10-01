@@ -15,7 +15,7 @@ backbone:
    [-1, 1, Conv, [128, 3, 2]],  # 1-P2/4
    [-1, 3, C3, [128]],
    [-1, 1, Conv, [256, 3, 2]],  # 3-P3/8
-   [-1, 9, C3, [256]],
+   [-1, 6, C3, [256]],
    [-1, 1, Conv, [512, 3, 2]],  # 5-P4/16
    [-1, 9, C3, [512]],
    [-1, 1, Conv, [768, 3, 2]],  # 7-P5/32
@@ -56,27 +56,3 @@ head:
 
    [[23, 26, 29, 32], 1, Detect, [nc, anchors]],  # Detect(P3, P4, P5, P6)
   ]
-
-# C3 false update
-# SPP location update
-# SPP args update
-
-# v6.0 architecture changes:
-# Replace Focus:  [[-1, 1, Conv, [64, 6, 2, 2]],  # 0-P1/2
-# SPP(3, 5, 7) -> SPPF(5)
-# C3(false) after C3 -> before SPPF
-
-#            self.transform = A.Compose([
-#                A.Blur(p=0.0),
-#                A.ToGray(p=0.0),
-#                A.CLAHE(p=0.10),
-#            ],
-
-# hyp.scratch-ccm10-lrf10.yaml
-
-# v6.0 runs
-# 0 - REPRODUCE yolov5l hyp.scratch-p6.yaml
-# 1 - yolov5l hyp.scratch-ccm10-lrf10.yaml
-# 2 - yolov5l hyp.scratch-p6.yaml + 696 convolutions
-# 3 - yolov5l_v6 hyp.scratch-p6.yaml + 696 convolutions
-# 4-7 - REPRODUCE yolov5l6 hyp.scratch-p6.yaml
